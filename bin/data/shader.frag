@@ -4,7 +4,6 @@ out vec4 outputColor;
 
 uniform float iTime;
 
-uniform sampler2DRect tex;
 uniform sampler3D tex3d;
 
 uniform vec2 iResolution;
