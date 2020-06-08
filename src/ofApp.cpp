@@ -14,30 +14,18 @@ void ofApp::setup(){
 	volWidth = imageSequence.getWidth();
 	volHeight = imageSequence.getHeight();
 	volDepth = imageSequence.getSequenceLength();
-	tex3d.allocate(volWidth,volHeight,volDepth,GL_RGBA);
+	tex3d.allocate(volWidth,volHeight,volDepth,GL_RGB);
 
 
 	std::cout << volWidth << ": " << volHeight << ": "<< volDepth<< std::endl;
+	allPixels = new ofPixels[volDepth];
 
-	volumeData = new unsigned char[volWidth * volHeight * volDepth * 4];
-	/*                              ImageW     ImageH       NbImage	 RGBA  
-														
-		*/
 	for (int z = 0; z < volDepth; z++) {
 		imageSequence.loadFrame(z);
-		//texture[z].loadData(imageSequence.getPixels());
-		for (int y = 0; y < volHeight; y++) {
-			for (int x = 0; x < volWidth; x++) {
-				int i4 = ((x + volWidth * y) + z * volWidth * volHeight) * 4;
-				ofColor c = imageSequence.getPixels().getColor(x + y * volWidth);
-				volumeData[i4]     = c.r;
-				volumeData[i4 + 1] = c.g;
-				volumeData[i4 + 2] = c.b;
-				volumeData[i4 + 3] = (char)1.0;
-			}
-		}
+		tex3d.loadData(imageSequence.getPixels(),1,0,0,z);
+	
 	}
-	tex3d.loadData(volumeData, volWidth, volHeight, volDepth, 0, 0, 0, GL_RGBA);
+
 }
 
 //--------------------------------------------------------------

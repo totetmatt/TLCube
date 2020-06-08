@@ -19,14 +19,15 @@ mat2 r(float a){
 void main()
 {
     vec2 uuv =  gl_FragCoord.xy/iResolution;
-
+     
+     uuv.y = 1.-uuv.y;
     vec2 uv = (gl_FragCoord.xy-.5*  iResolution.xy )/  iResolution.y;
 
     vec2 fuv = map(uv,vec2(-.5,.5),vec2(.5,-.5),vec2(0.,0.),iFrameSize);
 
     // vec3 t = texture(tex,fuv).rgb;
     //vec3 t = texture(tex,vec2(gl_FragCoord.x,iResolution.y- gl_FragCoord.y)*10. ).rgb;
-    vec3 t = texture(tex3d, vec3(uuv,0.)).rgb;
+    vec3 t = texture(tex3d, vec3(uuv,fract(uv.x+iTime))).rgb;
     float d = length(uv);
     outputColor = vec4(t,1.);
 }

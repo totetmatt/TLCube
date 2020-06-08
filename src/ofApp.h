@@ -30,5 +30,6 @@ class ofApp : public ofBaseApp{
 		//ofxVolumetrics myVolume;
 		unsigned char* volumeData;
 		ofxTexture3d tex3d;
+		ofPixels* allPixels;
 
 };
