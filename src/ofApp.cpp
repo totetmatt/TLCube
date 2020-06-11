@@ -3,22 +3,19 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
 	ofSetLogLevel(OF_LOG_VERBOSE);
-	/*ofLoadImage(texture[0], "01.JPG");
-	ofLoadImage(texture[1], "02.JPG");
-	ofLoadImage(texture[2], "03.JPG");*/
 
 
 
 	shader.load("shader.vert", "shader.frag");
-	imageSequence.init("./", 2, ".JPG", 1);
+	imageSequence.init("./imgs/fromvideo/", 3, ".jpg", 1);
 	volWidth = imageSequence.getWidth();
 	volHeight = imageSequence.getHeight();
 	volDepth = imageSequence.getSequenceLength();
 	tex3d.allocate(volWidth,volHeight,volDepth,GL_RGB);
 
 
-	std::cout << volWidth << ": " << volHeight << ": "<< volDepth<< std::endl;
-	allPixels = new ofPixels[volDepth];
+	// std::cout << volWidth << ": " << volHeight << ": "<< volDepth<< std::endl;
+
 
 	for (int z = 0; z < volDepth; z++) {
 		imageSequence.loadFrame(z);
@@ -30,10 +27,19 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
+	
+	
 	float iTime = ofGetElapsedTimef();
 	shader.begin();
+
 		tex3d.bind();
+			if(flagFilterModeLinear) {
+				glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+				glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+			} else {
+				glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+				glTexParameteri(GL_TEXTURE_3D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			}
 			shader.setUniform1i("tex3d", 0); // volume texture reference
 		tex3d.unbind();
 		shader.setUniform1f("iTime", iTime);
@@ -53,12 +59,15 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
+	shader.load("shader.vert", "shader.frag");
 
 }
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
-
+	if (key == 'f') {
+		flagFilterModeLinear = !flagFilterModeLinear;
+	}
 }
 
 //--------------------------------------------------------------

@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxVolumetrics.h"
+#include "ofxGui.h"
 class ofApp : public ofBaseApp{
 
 	public:
@@ -23,13 +24,11 @@ class ofApp : public ofBaseApp{
 
 		int volWidth, volHeight, volDepth;
 		ofxImageSequencePlayer imageSequence;
-		ofVideoPlayer video;
-		ofImage img;
+
 		ofShader shader;
-		//ofTexture texture[3];
-		//ofxVolumetrics myVolume;
-		unsigned char* volumeData;
+
 		ofxTexture3d tex3d;
-		ofPixels* allPixels;
+
+		bool flagFilterModeLinear = true;
 
 };
