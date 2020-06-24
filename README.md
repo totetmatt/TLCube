@@ -18,7 +18,7 @@ I'm actually not expert in cross compilation, so if you have any tips / tutorial
 * Run the executable.
 * Use the Gui to reach the set of image you want to use.
 
-![How to configure](./doc/imgs/config.png)
+![How to configure](./doc/imgs/config_how.png)
 
 * Open the `bin/shader.fragment` with any editor and modify it.
 * To apply change, just click on the running program
