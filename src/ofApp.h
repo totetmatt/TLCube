@@ -6,6 +6,7 @@
 class ofApp : public ofBaseApp{
 
 	public:
+		static const string VERSION;
 		void setup();
 		void update();
 		void draw();
@@ -22,12 +23,25 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
 
+		void refreshTexture();
+
 		int volWidth, volHeight, volDepth;
 		ofxImageSequencePlayer imageSequence;
 
 		ofShader shader;
 
 		ofxTexture3d tex3d;
+		
+		ofxPanel gui;
+		ofxLabel label;
+		ofxTextField path;// imageSequence.init("I:\\TestCube\\out", 2, ".png", 1);
+		ofxIntField digit;
+		ofxTextField ext;
+		ofxIntField start;
+		ofxButton reloadTexture;
+
+
+
 
 		bool flagFilterModeLinear = true;
 
